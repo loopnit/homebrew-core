@@ -42,7 +42,7 @@ class Pinot < Formula
         zkport.to_s
     end
 
-    sleep 10
+    sleep 15
 
     controller_pid = fork do
       exec "#{opt_bin}/pinot-admin",
