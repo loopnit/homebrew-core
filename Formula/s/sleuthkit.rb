@@ -1,8 +1,8 @@
 class Sleuthkit < Formula
   desc "Forensic toolkit"
   homepage "https://www.sleuthkit.org/"
-  url "https://github.com/sleuthkit/sleuthkit/releases/download/sleuthkit-4.12.1/sleuthkit-4.12.1.tar.gz"
-  sha256 "6b2de0baabc6a38429a33993114ca3820329b477d5038cbf45fcf69fca8addfd"
+  url "https://github.com/sleuthkit/sleuthkit/releases/download/sleuthkit-4.13.0/sleuthkit-4.13.0.tar.gz"
+  sha256 "f1490de8487df8708a4287c0d03bf0cb2153a799db98c584ab60def5c55c68f2"
   license all_of: ["IPL-1.0", "CPL-1.0", "GPL-2.0-or-later"]
 
   livecheck do
