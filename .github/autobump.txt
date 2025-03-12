@@ -1697,6 +1697,7 @@ kpcli
 kraftkit
 krakend
 krb5
+krep
 krew
 ksh93
 ksops
