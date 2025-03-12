@@ -2,33 +2,18 @@ class Gstreamer < Formula
   desc "Development framework for multimedia applications"
   homepage "https://gstreamer.freedesktop.org/"
   license all_of: ["LGPL-2.0-or-later", "LGPL-2.1-or-later", "MIT"]
-  revision 2
 
   stable do
-    url "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/archive/1.24.12/gstreamer-1.24.12.tar.bz2"
-    sha256 "23c0e1de51ce96be8ef26c79f9b971a11ab82c8e6267cea8c3933ede28fba155"
-
-    # Backport support for `svt-av1` >= 3.0.0
-    # upstream commit ref, https://gitlab.freedesktop.org/gstreamer/gstreamer/-/commit/6bdfaa4606c417be8a64f4494fe95ea30421c24b
-    patch do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/6cf03eafb8a3e77dcd4a7ddfc668f142dd42f9ee/gstreamer/gst-plugins-bad-svtav1.patch"
-      sha256 "a45f7a192df14b22c4bd106a63ad691ca6f8a219a37904f7a6e9dab9cc9dafea"
-    end
+    url "https://gitlab.freedesktop.org/gstreamer/gstreamer/-/archive/1.26.0/gstreamer-1.26.0.tar.bz2"
+    sha256 "a0fa96f7fa7fc4d37db08c5a8a2007ef3baf7cc554ba54e9165bd37099182916"
 
     # When updating this resource, use the tag that matches the GStreamer version.
     resource "rs" do
-      url "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/gstreamer-1.24.12/gst-plugins-rs-gstreamer-1.24.12.tar.bz2"
-      sha256 "da0a07f5163c59da00b1306be4843d2a2b6849c87a8af470e04fb91afbf8da3d"
+      url "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/gstreamer-1.26.0/gst-plugins-rs-gstreamer-1.26.0.tar.bz2"
+      sha256 "808d8baa2d556117d3fea28cc461260739866383241318daf18353a6007162c6"
 
       livecheck do
         formula :parent
-      end
-
-      # Backport support for newer `dav1d`
-      # upstream commit ref, https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/commit/7e1ab086de00125bc0d596f9ec5d74c9b82b2cc0
-      patch do
-        url "https://raw.githubusercontent.com/Homebrew/formula-patches/6fff2c4c62f1fb32b5ade46ec9246fc239935d7a/gstreamer/gst-plugins-rs-dav1d.patch"
-        sha256 "d17677a523af021b226969937550f19151b8042f6962eae9fa39ee0e0fc0fe3a"
       end
     end
   end
@@ -304,18 +289,19 @@ diff --git a/subprojects/gst-python/gi/overrides/meson.build b/subprojects/gst-p
 index 20aeb06ac9..3c53eab6d7 100644
 --- a/subprojects/gst-python/gi/overrides/meson.build
 +++ b/subprojects/gst-python/gi/overrides/meson.build
-@@ -7,8 +7,10 @@ python.install_sources(pysources,
+@@ -7,9 +7,11 @@ python.install_sources(pysources,
  host_system = host_machine.system()
  if host_system == 'windows'
    gst_dep_for_gi = gst_dep
 +  python_ext_dep = python_dep
  else
    gst_dep_for_gi = gst_dep.partial_dependency(compile_args: true, includes: true, sources: true)
+   gstanalytics_dep_for_gi = gstbad_dep.partial_dependency(compile_args:true, includes:true, sources:true)
 +  python_ext_dep = python_dep.partial_dependency(compile_args: true)
  endif
 
  gstpython = python.extension_module('_gi_gst',
-@@ -17,7 +19,7 @@ gstpython = python.extension_module('_gi_gst',
+@@ -18,7 +20,7 @@ gstpython = python.extension_module('_gi_gst',
      install_dir : pygi_override_dir,
      install_tag: 'python-runtime',
      include_directories : [configinc],
